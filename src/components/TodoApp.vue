@@ -6,7 +6,11 @@
       outlined
     >
       <add-todo-input />
-      <todo-item />
+      <todo-item
+        v-for="(todo, index) in todos"
+        :key="index"
+        :todo-content="todo.title"
+      />
     </v-card>
   </div>
 </template>
@@ -21,7 +25,7 @@ export default {
     AddTodoInput
   },
   computed: {
-    ...mapGetters(['getTodos'])
+    ...mapGetters(['todos'])
   },
   created() {
     this.fetchTodos()

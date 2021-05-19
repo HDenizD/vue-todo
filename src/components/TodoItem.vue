@@ -1,9 +1,9 @@
 <template>
   <div id="todo-item">
     <v-card
-      class="mx-auto mt-10 d-flex"
+      class="mx-auto d-flex"
       max-width="500"
-      height="100px"
+      height="70px"
       outlined
       tile
     >

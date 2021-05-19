@@ -3,14 +3,13 @@
     id="add-todo-input"
     class="d-flex"
   >
-    <v-textarea
-      v-model="newTodo"
+    <v-text-field
+      v-model="newTodo.title"
       class="ma-5"
       name="Add Todo"
       label="What needs to be done...?"
-      auto-grow
-      rows="1"
       outlined
+      :error-messages="invalidInput ? 'nothing todo?' : ''"
     />
     <v-btn
       color="success"
@@ -18,6 +17,8 @@
       class="add-btn ml-1"
       text
       outlined
+      :loading="requestBuffer"
+      @click="submitTodo(newTodo)"
     >
       <v-icon color="success">
         mdi-plus
@@ -27,10 +28,28 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      newTodo: ''
+      newTodo: {
+        title: 'Test'
+      },
+      invalidInput: false
+    }
+  },
+  computed: {
+    ...mapGetters(['requestBuffer'])
+  },
+  methods: {
+    ...mapActions(['addTodo']),
+    submitTodo(newTodo) {
+      if (this.newTodo.title.length !== 0) {
+        this.invalidInput = false
+        this.addTodo(newTodo)
+      } else {
+        this.invalidInput = true
+      }
     }
   }
 }
