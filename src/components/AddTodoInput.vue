@@ -13,11 +13,13 @@
       outlined
     />
     <v-btn
-      color="#42b883"
+      color="success"
       width="30px"
       class="add-btn ml-1"
+      text
+      outlined
     >
-      <v-icon color="#35495e">
+      <v-icon color="success">
         mdi-plus
       </v-icon>
     </v-btn>

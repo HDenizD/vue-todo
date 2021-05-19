@@ -1,9 +1,7 @@
 <template>
   <v-app-bar
     app
-    color="#35495e"
     dark
-    class=""
   >
     <div class="d-flex align-center mx-auto">
       <v-img

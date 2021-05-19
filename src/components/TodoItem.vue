@@ -5,25 +5,32 @@
       max-width="500"
       height="100px"
       outlined
+      tile
     >
       <v-list-item two-line>
-        <v-list-item-content>
-          <div class="overline mb-4">
-            OVERLINE
-          </div>
-          <v-list-item-title class="headline mb-1">
-            Headline 5
-          </v-list-item-title>
-        </v-list-item-content>
+        {{ todoContent }}
       </v-list-item>
 
-      <v-card-actions>
+      <v-card-actions class="d-flex">
         <v-btn
-          outlined
-          rounded
+          class="btn-check"
           text
+          fab
+          height="30px"
+          width="30px"
+          color="success"
         >
-          Button
+          <v-icon>mdi-check</v-icon>
+        </v-btn>
+        <v-btn
+          class="btn-check"
+          text
+          fab
+          height="30px"
+          width="30px"
+          color="error"
+        >
+          <v-icon>mdi-delete-outline</v-icon>
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -31,7 +38,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    todoContent: {
+      type: String,
+      default: 'nothing todo...'
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
