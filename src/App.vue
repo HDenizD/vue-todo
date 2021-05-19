@@ -18,10 +18,7 @@ export default {
     TodoApp,
     NavBar
   },
-
-  data: () => ({
-    //
-  })
+  data: () => ({})
 }
 </script>
 <style lang="scss">
