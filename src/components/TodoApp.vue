@@ -11,6 +11,7 @@
         v-for="(todo, index) in todos"
         :key="index"
         :todo-data="todo"
+        :todo-list-index="index"
       />
     </v-card>
   </div>

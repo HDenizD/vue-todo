@@ -25,7 +25,7 @@ export default new Vuex.Store({
       state.todos.push(payload)
     },
     deleteTodo(state, id) {
-      state.todos = state.todos.filter(todo => todo.id !== id)
+      state.todo.splice(id, 1)
     },
     updateRequestBuffer(state, payload) {
       state.requestBuffer = payload
@@ -71,7 +71,10 @@ export default new Vuex.Store({
         dispatch('deleteTodo', payload.id)
       }
       axios
-        .put(`https://jsonplaceholder.typicode.com/todos/${payload.id}`, payload)
+        .put(
+          `https://jsonplaceholder.typicode.com/todos/${payload.id}`,
+          payload
+        )
         .then(res => {
           commit('updateTodo', payload)
         })
