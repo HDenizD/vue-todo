@@ -71,7 +71,7 @@ export default new Vuex.Store({
         dispatch('deleteTodo', payload.id)
       }
       axios
-        .put(`https://jsonplaceholder.typicode.com/todos/${payload.id}`)
+        .put(`https://jsonplaceholder.typicode.com/todos/${payload.id}`, payload)
         .then(res => {
           commit('updateTodo', payload)
         })

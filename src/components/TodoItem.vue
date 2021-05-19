@@ -86,7 +86,6 @@ export default {
     },
     updateTodoHandler(todo) {
       this.updateTodo(todo)
-      todo.editMode = false
     },
     todoDone(todoData) {
       if (todoData.editMode) return
