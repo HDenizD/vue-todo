@@ -19,7 +19,7 @@
           flat
           solo
           class="todo-title"
-          @blur="updateTodo(todoData)"
+          @blur="updateTodoHandler(todoData)"
           @click="todoDone(todoData)"
           @keydown.ctrl.enter="todoData.editMode = false"
         />
@@ -83,6 +83,10 @@ export default {
     deleteHandler(id) {
       this.todoData.show = false
       this.deleteTodo(id)
+    },
+    updateTodoHandler(todo) {
+      this.updateTodo(todo)
+      todo.editMode = false
     },
     todoDone(todoData) {
       if (todoData.editMode) return
