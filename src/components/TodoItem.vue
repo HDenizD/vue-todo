@@ -3,7 +3,7 @@
     <transition name="slide-fade">
       <v-card
         v-if="todoData.show"
-        class="mx-auto d-flex"
+        class="mx-auto d-flex todo-card"
         max-width="500"
         height="auto"
         outlined
@@ -12,34 +12,46 @@
         <v-textarea
           :style="todoData.completed ? 'text-decoration: line-through' : ''"
           :value="todoData.title"
-          readonly
+          :readonly="!todoData.editMode"
           solo
           rows="1"
           auto-grow
           flat
           class="todo-title"
-        >
-          {{ todoData.title }}
-        </v-textarea>
+          @click="todoDone(todoData)"
+        />
 
         <v-card-actions class="d-flex">
           <v-btn
+            v-if="todoData.completed"
             class="btn-check"
             text
             fab
-            height="30px"
-            width="30px"
+            height="40px"
+            width="40px"
             color="success"
             @click="todoDone(todoData)"
           >
             <v-icon>mdi-check</v-icon>
           </v-btn>
           <v-btn
+            v-else
+            class="btn-check"
+            :text="!todoData.editMode"
+            fab
+            height="40px"
+            width="40px"
+            color="warning"
+            @click="toggleEditMode(todoData)"
+          >
+            <v-icon>mdi-pencil-outline</v-icon>
+          </v-btn>
+          <v-btn
             class="btn-check"
             text
             fab
-            height="30px"
-            width="30px"
+            height="40px"
+            width="40px"
             color="error"
             @click="submitDelete(todoData.id)"
           >
@@ -70,7 +82,11 @@ export default {
       this.deleteTodo(this.todoData.id)
     },
     todoDone(todoData) {
+      if (todoData.editMode) return
       todoData.completed = !todoData.completed
+    },
+    toggleEditMode(todoData) {
+      todoData.editMode = !todoData.editMode
     }
   }
 }
@@ -90,8 +106,12 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
-.todo-title {
-  top: 15px;
-  position: relative;
+.todo-card {
+  cursor: pointer;
+  .todo-title {
+    top: 15px;
+    position: relative;
+  }
 }
+
 </style>

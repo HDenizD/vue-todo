@@ -35,6 +35,7 @@ export default new Vuex.Store({
           const splicedTodos = res.data.splice(0, 3)
           for (const todo of splicedTodos) {
             todo.show = true
+            todo.editMode = false
           }
           commit('updateTodos', splicedTodos)
         })
@@ -47,10 +48,12 @@ export default new Vuex.Store({
       axios
         .post('https://jsonplaceholder.typicode.com/todos', payload)
         .then(res => {
-          res.data.id = getters.todos.length + 1
-          res.data.show = true
-          res.data.completed = false
-          commit('addTodo', res.data)
+          const todo = res.data
+          todo.id = getters.todos.length + 1
+          todo.show = true
+          todo.completed = false
+          todo.editMode = false
+          commit('addTodo', todo)
           commit('updateRequestBuffer', false)
         })
         .catch(err => {
