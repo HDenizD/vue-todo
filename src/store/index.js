@@ -17,11 +17,15 @@ export default new Vuex.Store({
     updateTodos(state, payload) {
       state.todos = payload
     },
+    updateTodo(state, payload) {
+      const todoIndex = state.todos.findIndex(todo => todo.id === payload.id)
+      state.todos[todoIndex] = payload
+    },
     addTodo(state, payload) {
       state.todos.push(payload)
     },
     deleteTodo(state, id) {
-      state.todos = state.todos.filter(x => x.id !== id)
+      state.todos = state.todos.filter(todo => todo.id !== id)
     },
     updateRequestBuffer(state, payload) {
       state.requestBuffer = payload
@@ -55,6 +59,21 @@ export default new Vuex.Store({
           todo.editMode = false
           commit('addTodo', todo)
           commit('updateRequestBuffer', false)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    updateTodo({ commit, dispatch }, payload) {
+      if (!payload.editMode) return
+      if (payload.title.length === 0) {
+        payload.show = false
+        dispatch('deleteTodo', payload.id)
+      }
+      axios
+        .put(`https://jsonplaceholder.typicode.com/todos/${payload.id}`)
+        .then(res => {
+          commit('updateTodo', payload)
         })
         .catch(err => {
           console.log(err)

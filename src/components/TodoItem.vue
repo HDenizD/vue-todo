@@ -10,15 +10,16 @@
         tile
       >
         <v-textarea
+          v-model="todoData.title"
           :style="todoData.completed ? 'text-decoration: line-through' : ''"
-          :value="todoData.title"
           :readonly="!todoData.editMode"
-          solo
           rows="1"
           auto-grow
           flat
+          solo
           class="todo-title"
           @click="todoDone(todoData)"
+          @blur="updateTodo(todoData)"
         />
 
         <v-card-actions class="d-flex">
@@ -76,10 +77,11 @@ export default {
     return {}
   },
   methods: {
-    ...mapActions(['deleteTodo']),
-    submitDelete() {
+    ...mapActions(['deleteTodo', 'updateTodo']),
+    submitDelete(id) {
+      console.log('called')
       this.todoData.show = false
-      this.deleteTodo(this.todoData.id)
+      this.deleteTodo(id)
     },
     todoDone(todoData) {
       if (todoData.editMode) return
@@ -107,11 +109,9 @@ export default {
   opacity: 0;
 }
 .todo-card {
-  cursor: pointer;
   .todo-title {
     top: 15px;
     position: relative;
   }
 }
-
 </style>
