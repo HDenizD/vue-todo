@@ -20,6 +20,9 @@ export default new Vuex.Store({
     addTodo(state, payload) {
       state.todos.push(payload)
     },
+    deleteTodo(state, id) {
+      state.todos = state.todos.filter(x => x.id !== id)
+    },
     updateRequestBuffer(state, payload) {
       state.requestBuffer = payload
     }
@@ -27,23 +30,38 @@ export default new Vuex.Store({
   actions: {
     fetchTodos({ commit }) {
       axios
-        .get('https://jsonplaceholder.typicode.com/todos/')
+        .get('https://jsonplaceholder.typicode.com/todos')
         .then(res => {
           const splicedTodos = res.data.splice(0, 3)
+          for (const todo of splicedTodos) {
+            todo.show = true
+          }
           commit('updateTodos', splicedTodos)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    addTodo({ commit }, payload) {
+    addTodo({ commit, getters }, payload) {
       commit('updateRequestBuffer', true)
       axios
         .post('https://jsonplaceholder.typicode.com/todos', payload)
         .then(res => {
-          console.log(res)
+          res.data.id = getters.todos.length + 1
+          res.data.show = true
+          res.data.completed = false
           commit('addTodo', res.data)
           commit('updateRequestBuffer', false)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteTodo({ commit }, id) {
+      axios
+        .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then(res => {
+          commit('deleteTodo', id)
         })
         .catch(err => {
           console.log(err)

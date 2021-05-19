@@ -3,12 +3,14 @@
     id="add-todo-input"
     class="d-flex"
   >
-    <v-text-field
+    <v-textarea
       v-model="newTodo.title"
       class="ma-5"
       name="Add Todo"
       label="What needs to be done...?"
       outlined
+      rows="1"
+      auto-grow
       :error-messages="invalidInput ? 'nothing todo?' : ''"
     />
     <v-btn
@@ -33,7 +35,8 @@ export default {
   data() {
     return {
       newTodo: {
-        title: 'Test'
+        title: 'Test',
+        show: false
       },
       invalidInput: false
     }

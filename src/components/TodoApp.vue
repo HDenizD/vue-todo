@@ -9,7 +9,7 @@
       <todo-item
         v-for="(todo, index) in todos"
         :key="index"
-        :todo-content="todo.title"
+        :todo-data="todo"
       />
     </v-card>
   </div>
