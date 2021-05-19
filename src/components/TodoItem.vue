@@ -38,11 +38,11 @@
           <v-btn
             v-else
             class="btn-check"
-            :text="!todoData.editMode"
+            text
             fab
             height="40px"
             width="40px"
-            color="warning"
+            :color="todoData.editMode ? 'success' : 'warning'"
             @click="toggleEditMode(todoData)"
           >
             <v-icon>mdi-pencil-outline</v-icon>
