@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       newTodo: {
-        title: 'Test',
+        title: '',
         show: false
       },
       invalidInput: false
