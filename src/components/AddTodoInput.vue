@@ -13,6 +13,7 @@
       auto-grow
       :error-messages="invalidInput ? 'nothing todo?' : ''"
       @keydown.ctrl.enter="submitTodo(newTodo)"
+      @input="invalidInput = false"
     />
     <v-btn
       color="success"
