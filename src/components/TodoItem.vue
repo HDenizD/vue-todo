@@ -56,7 +56,7 @@
             height="40px"
             width="40px"
             color="error"
-            @click="deleteHandler(todoData.id)"
+            @click="deleteHandler(todoData)"
           >
             <v-icon>mdi-delete-outline</v-icon>
           </v-btn>
@@ -73,10 +73,6 @@ export default {
     todoData: {
       type: Object,
       default: () => {}
-    },
-    todoListIndex: {
-      type: Number,
-      default: null
     }
   },
   data() {
@@ -84,9 +80,9 @@ export default {
   },
   methods: {
     ...mapActions(['deleteTodo', 'updateTodo']),
-    deleteHandler(id) {
+    async deleteHandler(todoData) {
       this.todoData.show = false
-      this.deleteTodo(this.todoListIndex)
+      await this.deleteTodo(todoData.id)
     },
     updateTodoHandler(todo) {
       this.updateTodo(todo)
@@ -108,7 +104,7 @@ export default {
   transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter,
 .slide-fade-leave-to {

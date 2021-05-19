@@ -25,7 +25,8 @@ export default new Vuex.Store({
       state.todos.push(payload)
     },
     deleteTodo(state, id) {
-      state.todo.splice(id, 1)
+      const todoIndex = state.todos.findIndex(todo => todo.id === id)
+      state.todos.splice(todoIndex, 1)
     },
     updateRequestBuffer(state, payload) {
       state.requestBuffer = payload
@@ -36,7 +37,7 @@ export default new Vuex.Store({
       axios
         .get('https://jsonplaceholder.typicode.com/todos')
         .then(res => {
-          const splicedTodos = res.data.splice(0, 3)
+          const splicedTodos = res.data.splice(0, 10)
           for (const todo of splicedTodos) {
             todo.show = true
             todo.editMode = false
