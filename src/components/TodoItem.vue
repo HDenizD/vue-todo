@@ -6,10 +6,11 @@
         class="mx-auto d-flex todo-card"
         max-width="500"
         height="auto"
-        outlined
         tile
+        elevation="7"
       >
         <v-textarea
+          ref="todoInput"
           v-model="todoData.title"
           :style="todoData.completed ? 'text-decoration: line-through' : ''"
           :readonly="!todoData.editMode"
@@ -18,8 +19,9 @@
           flat
           solo
           class="todo-title"
-          @click="todoDone(todoData)"
           @blur="updateTodo(todoData)"
+          @click="todoDone(todoData)"
+          @keydown.ctrl.enter="todoData.editMode = false"
         />
 
         <v-card-actions class="d-flex">
@@ -42,7 +44,7 @@
             fab
             height="40px"
             width="40px"
-            :color="todoData.editMode ? 'success' : 'warning'"
+            :color="todoData.editMode ? 'info' : 'warning'"
             @click="toggleEditMode(todoData)"
           >
             <v-icon>mdi-pencil-outline</v-icon>
@@ -54,7 +56,7 @@
             height="40px"
             width="40px"
             color="error"
-            @click="submitDelete(todoData.id)"
+            @click="deleteHandler(todoData.id)"
           >
             <v-icon>mdi-delete-outline</v-icon>
           </v-btn>
@@ -78,8 +80,7 @@ export default {
   },
   methods: {
     ...mapActions(['deleteTodo', 'updateTodo']),
-    submitDelete(id) {
-      console.log('called')
+    deleteHandler(id) {
       this.todoData.show = false
       this.deleteTodo(id)
     },
@@ -89,6 +90,7 @@ export default {
     },
     toggleEditMode(todoData) {
       todoData.editMode = !todoData.editMode
+      if (todoData.editMode) this.$refs.todoInput.focus()
     }
   }
 }
@@ -113,5 +115,8 @@ export default {
     top: 15px;
     position: relative;
   }
+}
+::v-deep textarea {
+  cursor: pointer !important;
 }
 </style>

@@ -5,13 +5,14 @@
   >
     <v-textarea
       v-model="newTodo.title"
-      class="ma-5"
+      class="ma-5 mb-0"
       name="Add Todo"
       label="What needs to be done...?"
       outlined
       rows="1"
       auto-grow
       :error-messages="invalidInput ? 'nothing todo?' : ''"
+      @keydown.ctrl.enter="submitTodo(newTodo)"
     />
     <v-btn
       color="success"
@@ -50,6 +51,7 @@ export default {
       if (this.newTodo.title.length !== 0) {
         this.invalidInput = false
         this.addTodo(newTodo)
+        this.newTodo.title = ''
       } else {
         this.invalidInput = true
       }

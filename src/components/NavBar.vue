@@ -2,6 +2,7 @@
   <v-app-bar
     app
     dark
+    elevation="10"
   >
     <div class="d-flex align-center mx-auto">
       <v-img

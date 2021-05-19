@@ -1,8 +1,9 @@
 <template>
   <div id="todo-app">
     <v-card
-      class="mx-auto mt-10"
+      class="mx-auto mt-8"
       max-width="500"
+      elevation="24"
       outlined
     >
       <add-todo-input />
