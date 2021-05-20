@@ -73,6 +73,10 @@ export default {
     todoData: {
       type: Object,
       default: () => {}
+    },
+    todoListIndex: {
+      type: Number,
+      default: null
     }
   },
   data() {
@@ -81,8 +85,12 @@ export default {
   methods: {
     ...mapActions(['deleteTodo', 'updateTodo']),
     deleteHandler(todoData) {
+      const payload = {
+        listIndex: this.todoListIndex,
+        todoData: this.todoData
+      }
       this.todoData.show = false
-      this.deleteTodo(todoData.id)
+      this.deleteTodo(payload)
     },
     updateTodoHandler(todo) {
       this.updateTodo(todo)

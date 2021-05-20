@@ -25,9 +25,8 @@ export default new Vuex.Store({
       state.todos.push(payload)
     },
     deleteTodo(state, id) {
-      const todoIndex = state.todos.findIndex(todo => todo.id === id)
-      state.todos[todoIndex].show = false
-      state.todos.splice(todoIndex, 1)
+      state.todos[id].show = false
+      state.todos.splice(id, 1)
     },
     updateRequestBuffer(state, payload) {
       state.requestBuffer = payload
@@ -85,11 +84,13 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteTodo({ commit }, id) {
+    deleteTodo({ commit }, payload) {
       axios
-        .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .delete(
+          `https://jsonplaceholder.typicode.com/todos/${payload.todoData.id}`
+        )
         .then(res => {
-          commit('deleteTodo', id)
+          commit('deleteTodo', payload.listIndex)
         })
         .catch(err => {
           console.log(err)
