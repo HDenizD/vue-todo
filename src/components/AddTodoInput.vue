@@ -51,7 +51,9 @@ export default {
     submitTodo(newTodo) {
       if (this.newTodo.title.length !== 0) {
         this.invalidInput = false
-        this.addTodo(newTodo)
+        this.addTodo(newTodo).then((todo) => {
+          todo.show = true
+        })
         this.newTodo.title = ''
       } else {
         this.invalidInput = true

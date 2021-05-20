@@ -80,9 +80,9 @@ export default {
   },
   methods: {
     ...mapActions(['deleteTodo', 'updateTodo']),
-    async deleteHandler(todoData) {
+    deleteHandler(todoData) {
       this.todoData.show = false
-      await this.deleteTodo(todoData.id)
+      this.deleteTodo(todoData.id)
     },
     updateTodoHandler(todo) {
       this.updateTodo(todo)
@@ -104,7 +104,7 @@ export default {
   transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
-  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.9s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
