@@ -19,9 +19,8 @@
           flat
           solo
           class="todo-title"
-          @blur="updateTodoHandler(todoData)"
           @click="todoDone(todoData)"
-          @keydown.ctrl.enter="todoData.editMode = false"
+          @keydown.ctrl.enter="toggleEditMode(todoData)"
         />
 
         <v-card-actions class="d-flex">
@@ -33,6 +32,7 @@
             height="40px"
             width="40px"
             color="success"
+            :loading="todoData.updateBuffer"
             @click="todoDone(todoData)"
           >
             <v-icon>mdi-check</v-icon>
@@ -44,6 +44,7 @@
             fab
             height="40px"
             width="40px"
+            :loading="todoData.updateBuffer"
             :color="todoData.editMode ? 'info' : 'warning'"
             @click="toggleEditMode(todoData)"
           >
@@ -87,19 +88,26 @@ export default {
     deleteHandler(todoData) {
       const payload = {
         listIndex: this.todoListIndex,
-        todoData: this.todoData
+        todoData: todoData
       }
       this.todoData.show = false
       this.deleteTodo(payload)
     },
     updateTodoHandler(todo) {
-      this.updateTodo(todo)
+      todo.updateBuffer = true
+      this.updateTodo(todo).then(() => {
+        todo.updateBuffer = false
+      })
     },
     todoDone(todoData) {
       if (todoData.editMode) return
       todoData.completed = !todoData.completed
+      this.updateTodoHandler(todoData)
     },
     toggleEditMode(todoData) {
+      if (todoData.editMode) {
+        this.updateTodoHandler(todoData)
+      }
       todoData.editMode = !todoData.editMode
       if (todoData.editMode) this.$refs.todoInput.focus()
     }

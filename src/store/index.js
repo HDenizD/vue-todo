@@ -41,6 +41,7 @@ export default new Vuex.Store({
           for (const todo of splicedTodos) {
             todo.show = true
             todo.editMode = false
+            todo.updateBuffer = false
           }
           commit('updateTodos', splicedTodos)
         })
@@ -58,6 +59,7 @@ export default new Vuex.Store({
           todo.show = false
           todo.completed = false
           todo.editMode = false
+          todo.updateBuffer = false
           commit('addTodo', todo)
           commit('updateRequestBuffer', false)
           return todo
@@ -66,13 +68,12 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    updateTodo({ commit, dispatch }, payload) {
-      if (!payload.editMode) return
+    async updateTodo({ commit, dispatch }, payload) {
       if (payload.title.length === 0) {
         payload.show = false
         dispatch('deleteTodo', payload.id)
       }
-      axios
+      return axios
         .put(
           `https://jsonplaceholder.typicode.com/todos/${payload.id}`,
           payload
