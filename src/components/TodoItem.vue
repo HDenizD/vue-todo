@@ -48,7 +48,7 @@
             :color="todoData.editMode ? 'info' : 'warning'"
             @click="toggleEditMode(todoData)"
           >
-            <v-icon>mdi-pencil-outline</v-icon>
+            <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-btn
             class="btn-check"
@@ -59,7 +59,7 @@
             color="error"
             @click="deleteHandler(todoData)"
           >
-            <v-icon>mdi-delete-outline</v-icon>
+            <v-icon>mdi-delete</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
