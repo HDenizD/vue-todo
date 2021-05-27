@@ -90,7 +90,7 @@ export default {
         listIndex: this.todoListIndex,
         todoData: todoData
       }
-      this.todoData.show = false
+      todoData.show = false
       this.deleteTodo(payload)
     },
     updateTodoHandler(todo) {

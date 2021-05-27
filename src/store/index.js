@@ -85,8 +85,8 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteTodo({ commit }, payload) {
-      axios
+    async deleteTodo({ commit }, payload) {
+      return axios
         .delete(
           `https://jsonplaceholder.typicode.com/todos/${payload.todoData.id}`
         )
@@ -94,6 +94,7 @@ export default new Vuex.Store({
           commit('deleteTodo', payload.listIndex)
         })
         .catch(err => {
+          payload.todoData.show = true
           console.log(err)
         })
     }
