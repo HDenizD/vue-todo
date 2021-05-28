@@ -13,6 +13,7 @@
         :todo-data="todo"
         :todo-list-index="index"
       />
+      <Summary />
     </v-card>
   </div>
 </template>
@@ -20,11 +21,13 @@
 <script>
 import AddTodoInput from '@/components/AddTodoInput'
 import TodoItem from '@/components/TodoItem'
+import Summary from '@/components/Summary'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     TodoItem,
-    AddTodoInput
+    AddTodoInput,
+    Summary
   },
   computed: {
     ...mapGetters(['todos'])

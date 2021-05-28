@@ -11,7 +11,12 @@ export default new Vuex.Store({
   },
   getters: {
     todos: state => state.todos,
-    requestBuffer: state => state.requestBuffer
+    requestBuffer: state => state.requestBuffer,
+    todosCount: state => state.todos.length,
+    todosCompletedCount: state =>
+      state.todos.filter(todo => todo.completed).length,
+    todosUncompletedCount: state =>
+      state.todos.filter(todo => !todo.completed).length
   },
   mutations: {
     updateTodos(state, payload) {
@@ -28,6 +33,9 @@ export default new Vuex.Store({
       state.todos[id].show = false
       state.todos.splice(id, 1)
     },
+    deleteAllTodos(state, payload) {
+      state.todos = payload
+    },
     updateRequestBuffer(state, payload) {
       state.requestBuffer = payload
     }
@@ -37,7 +45,7 @@ export default new Vuex.Store({
       axios
         .get('https://jsonplaceholder.typicode.com/todos')
         .then(res => {
-          const splicedTodos = res.data.splice(0, 10)
+          const splicedTodos = res.data.splice(0, 5)
           for (const todo of splicedTodos) {
             todo.show = true
             todo.editMode = false
@@ -86,6 +94,17 @@ export default new Vuex.Store({
         })
     },
     async deleteTodo({ commit }, payload) {
+      if (payload === 'deleteAll') {
+        return axios
+          .delete('https://jsonplaceholder.typicode.com/todos/*')
+          .then(res => {
+            console.log(res)
+            commit('deleteAllTodos', [])
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
       return axios
         .delete(
           `https://jsonplaceholder.typicode.com/todos/${payload.todoData.id}`
