@@ -30,7 +30,6 @@ export default new Vuex.Store({
       state.todos.push(payload)
     },
     deleteTodo(state, id) {
-      state.todos[id].show = false
       state.todos.splice(id, 1)
     },
     deleteAllTodos(state, payload) {
@@ -98,7 +97,6 @@ export default new Vuex.Store({
         return axios
           .delete('https://jsonplaceholder.typicode.com/todos/*')
           .then(res => {
-            console.log(res)
             commit('deleteAllTodos', [])
           })
           .catch(err => {

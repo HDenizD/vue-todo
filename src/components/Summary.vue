@@ -15,9 +15,6 @@
           class="chip d-flex justify-center"
         >
           {{ todosTodoWording }}: {{ todosCount }}
-          <!-- <v-icon color="success">
-            mdi-check
-          </v-icon> -->
         </v-chip>
 
         <v-chip
@@ -26,12 +23,6 @@
           class="chip d-flex justify-center"
         >
           Completed: {{ todosCompletedCount }}
-          <v-icon
-            color="success"
-            class="ml-2"
-          >
-            mdi-check
-          </v-icon>
         </v-chip>
 
         <v-chip
@@ -41,12 +32,6 @@
           @click="deleteAllTodos()"
         >
           Delete All
-          <v-icon
-            color="error"
-            class="ml-2"
-          >
-            mdi-delete
-          </v-icon>
         </v-chip>
       </v-card-actions>
     </v-card>
